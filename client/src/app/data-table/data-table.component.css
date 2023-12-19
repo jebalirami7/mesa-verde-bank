@@ -1,0 +1,16 @@
+.title {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+  font-size: xx-large;
+}
+
+.data-table {
+  width: 80%;
+  margin: auto;
+}
+
+th {
+  background-color: rgb(34, 31, 31) !important;
+  color: white;
+}
