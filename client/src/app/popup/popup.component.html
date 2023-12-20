@@ -1,5 +1,5 @@
-<form [formGroup]="myform" (ngSubmit)="Saveuser()">
-  <h1 mat-dialog-title>Réclamation N°{{inputdata.id}}</h1>
+<form [formGroup]="myForm" (ngSubmit)="Saveuser()">
+  <h1 mat-dialog-title>Réclamation N°{{data.id}}</h1>
   <div mat-dialog-content>
       <mat-form-field>
           <mat-label>Sujet</mat-label>
@@ -10,15 +10,24 @@
         <input formControlName="cin" matInput readonly/>
     </mat-form-field>
     <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea formControlName="description" matInput readonly></textarea>
+    </mat-form-field>    
+    <mat-form-field>
       <mat-label>Date</mat-label>
       <input matInput formControlName="date" readonly/>
     </mat-form-field>
     <mat-form-field>
         <mat-label>Etat</mat-label>
-        <mat-select [value]="'default'" panelClass="sort-select" [disabled]="editdata.status !== 'En Attente'">
-            <mat-option value="default">{{editdata.status}}</mat-option>
-            <mat-option value="rejected">Rejetée</mat-option>
-            <mat-option value="accepted">Traitée</mat-option>
+        <mat-select 
+          [value]="'default'" 
+          panelClass="sort-select" 
+          [disabled]="editData.status !== 'En Attente'" 
+          (selectionChange)="onSelectChange($event)"
+        >
+            <mat-option value="default">{{editData?.status}}</mat-option>
+            <mat-option value="Rejetée">Rejetée</mat-option>
+            <mat-option value="Traitée">Traitée</mat-option>
         </mat-select>
     </mat-form-field>
   </div>

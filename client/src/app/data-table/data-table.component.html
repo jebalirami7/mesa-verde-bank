@@ -1,22 +1,30 @@
 <h1 class="title">Liste Des Réclamations</h1>
 
-  <mat-card-header class="filter">
+  <mat-card-content class="filter">
     <mat-form-field>
-      <input matInput (keyup)="Filterchange($event)" placeholder="Filtrer Par..." />
+      <input matInput (keyup)="Filterchange($event)" placeholder="Entrer un texte..." />
+      <!-- (keyup)="Filterchange($event)" -->
     </mat-form-field>
-  </mat-card-header>
+  </mat-card-content>
 
   <mat-card-content>
     <div class="mat-elevation-z8 data-table">
       <table mat-table class="full-width-table" matSort aria-label="Elements">
-        <ng-container matColumnDef="id">
+        <ng-container  matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-          <td mat-cell *matCellDef="let row">{{ row.id }}</td>
-        </ng-container>
+          <div style="width: 50%;">
+            <td mat-cell *matCellDef="let row">{{ row._id }}</td>
+          </div>
+          </ng-container>
 
         <ng-container matColumnDef="subject">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Sujet</th>
           <td mat-cell *matCellDef="let row">{{ row.subject }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cin">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cin Du Client</th>
+          <td mat-cell *matCellDef="let row">{{ row.cin_client }}</td>
         </ng-container>
 
         <ng-container matColumnDef="date">
@@ -33,7 +41,7 @@
           <th mat-header-cell *matHeaderCellDef>Action</th>
           <td mat-cell *matCellDef="let row">
             <button
-              (click)="editComplaint(row.id)"
+              (click)="editReclamation(row._id)"
               mat-raised-button
               color="primary"
             >

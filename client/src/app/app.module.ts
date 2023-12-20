@@ -7,6 +7,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { PopupComponent } from './popup/popup.component';
 import { DataTableComponent } from './data-table/data-table.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,6 +29,7 @@ import { MaterialModule } from './material-module';
     MaterialModule,
     FormsModule, 
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

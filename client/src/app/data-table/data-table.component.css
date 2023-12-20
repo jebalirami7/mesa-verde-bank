@@ -14,3 +14,7 @@ th {
   background-color: rgb(34, 31, 31) !important;
   color: white;
 }
+
+.filter {
+  margin-left: 200px;
+}

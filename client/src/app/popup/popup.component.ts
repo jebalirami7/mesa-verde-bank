@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Service } from '../service';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-popup',
@@ -8,42 +10,52 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./popup.component.css']
 })
 export class PopupComponent implements OnInit {
-  inputdata: any;
-  editdata: any;
-  closemessage = 'closed using directive'
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private ref: MatDialogRef<PopupComponent>, private builder: FormBuilder) {
-    console.log('data', this.data)
-  }
+  editData!: any;
+  myForm!: FormGroup;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private ref: MatDialogRef<PopupComponent>, private builder: FormBuilder, 
+    private service: Service) { }
 
   ngOnInit(): void {
-    this.inputdata = this.data;
-    this.setpopupdata(this.inputdata.id)
+    this.setpopupdata(this.data.id)
+    this.myForm = this.builder.group({
+      status: this.builder.control(''),
+      cin: this.builder.control(0),
+      subject: this.builder.control(''),
+      description: this.builder.control(''),
+      date: this.builder.control(''),
+    }); 
+  }
+
+  onSelectChange(event: MatSelectChange): void {
+    if (event.value !== 'default') {
+      this.myForm.value.status = event.value;
+    } else {
+      this.myForm.value.status = "En Attente";
+    }
   }
 
   setpopupdata(id: any) {
-    this.editdata = {status: 'En Attente', cin: 123456789, subject: 'subjectt', date: '01-15-2023'}
-    this.myform.setValue({
-      cin: this.editdata.cin,
-      date: this.editdata.date,
-      subject: this.editdata.subject,
-      status: this.editdata.status
-    });
+    this.service.GetReclamationById(this.data.id).subscribe(item => {
+      this.editData = item;
+      this.editData = this.editData.reclamation;
+      this.myForm.setValue({
+        cin: this.editData.cin_client,
+        date: this.editData.date,
+        subject: this.editData.subject,
+        status: this.editData.status,
+        description: this.editData.description,
+      });
+    });    
   }
 
   closepopup() {
-    this.ref.close('Closed using function');
+    this.ref.close('Popup Closed');
   }
 
-  myform = this.builder.group({
-    status: this.builder.control(''),
-    cin: this.builder.control(0),
-    subject: this.builder.control(''),
-    date: this.builder.control(''),
-  });
-
   Saveuser() {
-    // this.service.Savecustomer(this.myform.value).subscribe(res => {
-    //   this.closepopup();
-    // });
+    this.service.SaveReclamation(this.data.id, this.myForm.value).subscribe(res => {
+      this.closepopup();
+    });
   }
 }
