@@ -1,13 +1,13 @@
 const express = require('express');
 const controller = require('../controllers/reclamation');
-
+const checkAuth = require('../middlewares/checkAuth');
 const router = express.Router();
 
-router.get('/', controller.getAllRec);
-router.get('/:id', controller.getReclamation);
-router.post('/', controller.createReclamation);
-router.patch('/:id', controller.editReclamation);
-router.delete('/:id', controller.deleteReclamation);
-router.delete('/', controller.deleteAllReclamation);
+router.get('/', checkAuth , controller.getAllRec);
+router.get('/:id', checkAuth , controller.getReclamation);
+router.post('/' ,checkAuth , controller.createReclamation);
+router.patch('/:id', checkAuth , controller.editReclamation);
+router.delete('/:id', checkAuth , controller.deleteReclamation);
+router.delete('/', checkAuth , controller.deleteAllReclamation);
 
 module.exports = router ;

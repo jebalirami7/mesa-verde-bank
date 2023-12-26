@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../popup/popup.component';
 import { Service } from '../service';
 import { Reclamation } from '../Entities/Reclamation';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-data-table',
@@ -20,7 +22,7 @@ export class DataTableComponent implements AfterViewInit {
   dataSource: any;
   reclamations !: Reclamation[];
 
-  constructor(private service: Service, private dialog: MatDialog) {
+  constructor(private service: Service, private dialog: MatDialog, private router: Router) {
       this.loadReclamation();
   }
 
@@ -32,7 +34,15 @@ export class DataTableComponent implements AfterViewInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       this.table.dataSource = this.dataSource;
-    });
+    },
+    err => {
+      if (err instanceof HttpErrorResponse) {
+        if ( err.status === 401 ) {
+          this.router.navigate(['']);
+        }
+      }
+    }
+    );
   }
   
   displayedColumns = ['id', 'subject', 'cin', 'date', 'status', 'action'];

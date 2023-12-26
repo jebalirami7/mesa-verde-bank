@@ -7,16 +7,16 @@
                 <h2>Espace Agent</h2>
             </div>
 
-            <form action="">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
                 <h2>Welcome Back</h2>
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" formControlName="username">
 
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" formControlName="password" >
 
-                <a href="" class="forgot-pass">Forgot Password ?</a>
-                <button type="submit">Login</button>
+                <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+                <button type="submit" >Login</button>
             </form>
         </div>
     </div>

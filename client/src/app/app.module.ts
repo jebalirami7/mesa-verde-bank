@@ -7,13 +7,15 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { PopupComponent } from './popup/popup.component';
 import { DataTableComponent } from './data-table/data-table.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModule } from './material-module';
+import { AuthService } from './services/auth.service';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,11 @@ import { MaterialModule } from './material-module';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthService, {
+    provide : HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
