@@ -2,7 +2,16 @@ const mongoose = require('mongoose');
 const Reclamation = require('../models/reclamation'); 
 
 exports.getAllRec = (req, res, next ) => {
-    Reclamation.find().exec().then( docs => {
+    const condition = {};
+    const status = req.params.id;
+    if (status == "in-progress") 
+        condition.status = "En Attente";
+    else if (status == "accepted") 
+        condition.status = "Traitée";
+    else if (status == "rejected") 
+        condition.status = "Rejetée";
+
+    Reclamation.find(condition).exec().then( docs => {
         res.status(200).json({
             message: 'Reclamations trouvées : ',
             reclamations: docs,
