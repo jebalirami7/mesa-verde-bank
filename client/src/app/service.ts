@@ -12,8 +12,11 @@ const url = 'http://localhost:3000';
 export class Service {
   constructor(private http: HttpClient) {}
 
-  GetReclamation(): Observable<any> {
-    return this.http.get<any>(url + '/reclamation');
+  GetReclamation(param: any): Observable<any> {
+    let getRecs = "/reclamation/getAll";
+    if (param == "in-progress" || param == "accepted" || param == "rejected") 
+      getRecs += "/" + param;
+    return this.http.get<any>(url + getRecs);
   }
 
   SaveReclamation(id: any, data: any) {

@@ -16,6 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { AuthService } from './services/auth.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { BodyComponent } from './body/body.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     LoginPageComponent,
     DataTableComponent,
     PopupComponent,
+    SidenavComponent,
+    BodyComponent,
   ],
   imports: [
     BrowserModule,

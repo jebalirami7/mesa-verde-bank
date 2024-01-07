@@ -7,7 +7,7 @@ import { PopupComponent } from '../popup/popup.component';
 import { Service } from '../service';
 import { Reclamation } from '../Entities/Reclamation';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-data-table',
@@ -16,33 +16,38 @@ import { Router } from '@angular/router';
 })
 
 export class DataTableComponent implements AfterViewInit {
+
+  param?:string;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<any>;
   dataSource: any;
   reclamations !: Reclamation[];
 
-  constructor(private service: Service, private dialog: MatDialog, private router: Router) {
-      this.loadReclamation();
+  constructor(private service: Service, private dialog: MatDialog, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.params.subscribe(params => {
+      this.param = params['param'];
+    });      
+    console.log(this.param);
+    this.loadReclamation(this.param);
   }
-
-  loadReclamation() {
-    this.service.GetReclamation().subscribe(res => {
-      console.log(res?.reclamations)
-      this.reclamations = res?.reclamations;
-      this.dataSource = new MatTableDataSource<Reclamation>(this.reclamations);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.table.dataSource = this.dataSource;
-    },
-    err => {
-      if (err instanceof HttpErrorResponse) {
-        if ( err.status === 401 ) {
-          this.router.navigate(['']);
-        }
+  
+  loadReclamation(param: any) {
+    this.service.GetReclamation(param).subscribe(res => {
+    console.log(res?.reclamations)
+    this.reclamations = res?.reclamations;
+    this.dataSource = new MatTableDataSource<Reclamation>(this.reclamations);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.table.dataSource = this.dataSource;
+  }, err => {
+    if (err instanceof HttpErrorResponse) {
+      if ( err.status === 401 ) {
+        this.router.navigate(['']);
       }
     }
-    );
+  });
   }
   
   displayedColumns = ['id', 'subject', 'cin', 'date', 'status', 'action'];
@@ -73,7 +78,7 @@ export class DataTableComponent implements AfterViewInit {
     });
     _popup.afterClosed().subscribe(item => {
       // console.log(item)
-      this.loadReclamation();
+      this.loadReclamation(this.param);
     });
   }
 }
