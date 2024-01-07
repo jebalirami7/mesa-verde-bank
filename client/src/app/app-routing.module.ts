@@ -10,13 +10,8 @@ const routes: Routes = [
     component: LoginPageComponent,
     canActivate : [authGuard],
   }, 
-  // {
-  //   path: 'reclamations',
-  //   component: DataTableComponent,
-  //   canActivate : [reclamationGuard]
-  // },
   {
-    path: 'dashboard',
+    path: 'reclamations',
     component: DataTableComponent,
     canActivate : [reclamationGuard]
   },
