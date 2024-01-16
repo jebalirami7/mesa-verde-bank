@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Service } from '../service';
 import { MatSelectChange } from '@angular/material/select';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-popup',
@@ -14,9 +15,11 @@ export class PopupComponent implements OnInit {
   myForm!: FormGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private ref: MatDialogRef<PopupComponent>, private builder: FormBuilder, 
-    private service: Service) { }
+    private service: Service, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinner.show();
+
     this.setpopupdata(this.data.id)
     this.myForm = this.builder.group({
       status: this.builder.control(''),
@@ -37,6 +40,9 @@ export class PopupComponent implements OnInit {
 
   setpopupdata(id: any) {
     this.service.GetReclamationById(this.data.id).subscribe(item => {
+      if (item)
+        this.spinner.hide();
+      
       this.editData = item;
       this.editData = this.editData.reclamation;
       this.myForm.setValue({

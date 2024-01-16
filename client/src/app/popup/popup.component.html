@@ -1,3 +1,12 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-spin"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
 <form [formGroup]="myForm" (ngSubmit)="Saveuser()">
   <h1 mat-dialog-title>Réclamation N°{{data.id}}</h1>
   <div mat-dialog-content>
@@ -11,7 +20,7 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Description</mat-label>
-      <textarea formControlName="description" matInput readonly></textarea>
+      <textarea style="height: 100px;" formControlName="description" matInput readonly></textarea>
     </mat-form-field>    
     <mat-form-field>
       <mat-label>Date</mat-label>
@@ -22,10 +31,10 @@
         <mat-select 
           [value]="'default'" 
           panelClass="sort-select" 
-          [disabled]="editData.status !== 'En Attente'" 
+          [disabled]="editData?.status != 'En Attente'" 
           (selectionChange)="onSelectChange($event)"
         >
-            <mat-option value="default">{{editData?.status}}</mat-option>
+            <mat-option value="default">{{editData.status}}</mat-option>
             <mat-option value="Rejetée">Rejetée</mat-option>
             <mat-option value="Traitée">Traitée</mat-option>
         </mat-select>
