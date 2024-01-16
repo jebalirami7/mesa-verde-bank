@@ -16,5 +16,11 @@
                 <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
             </a>
         </li>
+        <li class="sidenav-nav-item" (click)="onLogout()">
+            <a class="sidenav-nav-link" href="">
+                <i class="sidenav-link-icon" [class]="'fa fa-sign-out-alt'" ></i>
+                <span class="sidenav-link-text" *ngIf="collapsed">Logout</span>
+            </a>
+        </li>
     </ul>
 </div>

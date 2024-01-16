@@ -6,21 +6,19 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  styleUrls: ['./login-page.component.css'],
 })
 export class LoginPageComponent {
-
   loginForm: FormGroup;
   errorMessage: string;
 
-  constructor(private formBuilder: FormBuilder, private auth:AuthService, private router : Router) {
-    this.errorMessage = "";
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router) {
+    this.errorMessage = '';
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
-
 
   onSubmit() {
     const usernameControl = this.loginForm.get('username');
@@ -29,22 +27,17 @@ export class LoginPageComponent {
     if (usernameControl && passwordControl && usernameControl.valid && passwordControl.valid) {
       const username = usernameControl.value;
       const password = passwordControl.value;
-      this.errorMessage = "";
+      this.errorMessage = '';
 
-      this.auth.login(this.loginForm.value).subscribe(
-        {
-          next : (result) => {
-            localStorage.setItem('token',result.token);
-            this.router.navigate(['/reclamations']);
-            
-          },
-          error : (err) => {
-            this.errorMessage = 'Erreur d\'authentification';
-            
-          }
-        }
-      )
-
+      this.auth.login(this.loginForm.value).subscribe({
+        next: (result) => {
+          localStorage.setItem('token', result.token);
+          this.router.navigate(['/reclamations']);
+        },
+        error: (err) => {
+          this.errorMessage = "Erreur d'authentification";
+        },
+      });
     } else {
       this.errorMessage = 'Please enter valid credentials';
     }

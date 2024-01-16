@@ -1,4 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+
+interface SideNavToggle {
+  screenWidth: number;
+  collapsed: boolean;
+}
 
 @Component({
   selector: 'app-body',
@@ -7,8 +13,23 @@ import { Component, Input } from '@angular/core';
 })
 export class BodyComponent {
 
-  @Input() collapsed = false;
-  @Input() screenWidth = 0;
+
+  constructor(private auth: AuthService) {
+    console.log(this.isLoggedIn)
+  }
+
+  // @Input() collapsed = false;
+  // @Input() screenWidth = 0;
+  isLoggedIn = this.auth.isLoggedIn();
+
+
+  collapsed = false;
+  screenWidth = 0;
+
+  onToggleSideNav(data: SideNavToggle): void {
+    this.screenWidth = data.screenWidth;
+    this.collapsed = data.collapsed;
+  }
 
   getBodyClass(): string {
     let styleClass = "";

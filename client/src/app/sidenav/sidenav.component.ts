@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { navbarData } from './nav-data';
+import { AuthService } from '../services/auth.service';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -17,6 +18,9 @@ export class SidenavComponent {
   collapsed = false;
   screenWidth = 0;
   navData = navbarData;
+  isLoggedIn = this.auth.isLoggedIn();
+
+  constructor(private auth:AuthService) {}
 
   toggleCollapse(): void {
     this.collapsed = !this.collapsed;
@@ -27,5 +31,10 @@ export class SidenavComponent {
     this.collapsed = false;
     this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
   }
+
+  onLogout() {
+    this.auth.logout();
+  }
+
 }
 

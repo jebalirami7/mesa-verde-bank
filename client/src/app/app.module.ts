@@ -18,6 +18,7 @@ import { AuthService } from './services/auth.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { BodyComponent } from './body/body.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,8 @@ import { BodyComponent } from './body/body.component';
     FormsModule, 
     ReactiveFormsModule,
     HttpClientModule,
+    NgxSpinnerModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthService, {
     provide : HTTP_INTERCEPTORS,
