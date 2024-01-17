@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { filter } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-data-table',
@@ -28,13 +29,14 @@ export class DataTableComponent implements OnInit, AfterViewInit {
   dataSource: any;
   reclamations !: Reclamation[];
 
-  constructor(private service: Service, private dialog: MatDialog, private router: Router, private route: ActivatedRoute,
+  constructor(private service: Service, private dialog: MatDialog, private auth:AuthService,
+    private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService) { }
   
   loadReclamation(param: any) {
     this.spinner.show();
 
-    this.service.GetReclamation(param).subscribe(res => {
+    this.service.GetReclamation(param).subscribe({next : res => {
       if (res)
         this.spinner.hide();
 
@@ -45,13 +47,14 @@ export class DataTableComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator = this.paginator;
       if (this.table)
         this.table.dataSource = this.dataSource;
-    }, err => {
+    }, error : err => {
       if (err instanceof HttpErrorResponse) {
         if ( err.status === 401 ) {
-          this.router.navigate(['']);
+          this.auth.logout();
+          this.router.navigate(['/']);
         }
       }
-    });
+    }});
   }
   
   displayedColumns = ['id', 'subject', 'cin', 'date', 'status', 'action'];

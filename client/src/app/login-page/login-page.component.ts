@@ -31,7 +31,7 @@ export class LoginPageComponent {
 
       this.auth.login(this.loginForm.value).subscribe({
         next: (result) => {
-          localStorage.setItem('token', result.token);
+          this.auth.setToken(result.token);
           this.router.navigate(['/reclamations']);
         },
         error: (err) => {

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { navbarData } from './nav-data';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -20,7 +21,7 @@ export class SidenavComponent {
   navData = navbarData;
   isLoggedIn = this.auth.isLoggedIn();
 
-  constructor(private auth:AuthService) {}
+  constructor(private auth:AuthService, private router: Router) {}
 
   toggleCollapse(): void {
     this.collapsed = !this.collapsed;
@@ -34,6 +35,7 @@ export class SidenavComponent {
 
   onLogout() {
     this.auth.logout();
+    this.router.navigate(['/']);
   }
 
 }

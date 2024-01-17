@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
   login(credentials: any): Observable<any> {
     return this.http.post<any>(`${environment.apiURL}/user/login`, credentials);
@@ -22,8 +22,12 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  setToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
   logout() {
     localStorage.removeItem('token');
-    this.router.navigate(['/']);
+    
   }
 }
