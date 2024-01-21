@@ -9,7 +9,6 @@ import { Reclamation } from '../Entities/Reclamation';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { filter } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 
 @Component({
