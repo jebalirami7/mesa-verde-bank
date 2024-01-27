@@ -12,6 +12,11 @@ exports.getAllRec = (req, res, next ) => {
         condition.status = "Rejetée";
 
     Reclamation.find(condition).exec().then( docs => {
+        docs.forEach( doc => {
+            let numToStr = doc.cin_client.toString();
+            let length = numToStr.length;
+            doc.cin_client = parseInt( numToStr.substring(length - 3, length), 10 );
+        });
         res.status(200).json({
             message: 'Reclamations trouvées : ',
             reclamations: docs,
@@ -53,6 +58,9 @@ exports.getCount = (req, res, next ) => {
 exports.getReclamation = (req, res, next ) => {
     const id = req.params.id;
     Reclamation.findById(id).exec().then( doc => {
+        let numToStr = doc.cin_client.toString();
+        let length = numToStr.length;
+        doc.cin_client = parseInt( numToStr.substring(length - 3, length), 10 );
         res.status(200).json({
             message: 'Reclamation trouvée',
             reclamation: doc,
