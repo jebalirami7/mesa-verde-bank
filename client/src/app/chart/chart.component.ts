@@ -50,7 +50,7 @@ export class ChartComponent implements OnInit {
         labels: ["Acceptée", "En Attente", "Rejetée"],
         datasets: [{
           data: [this.count?.accepted, this.count?.inProgress, this.count?.rejected],
-          backgroundColor: ["#41B883", "#00D8FF", "#DD1B16"], // FFCE56 for yellow
+          backgroundColor: ["#41B883", "#ffa500", "#DD1B16"], // FFCE56 for yellow
           borderWidth: 2
         }]
       }

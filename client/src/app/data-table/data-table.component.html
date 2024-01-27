@@ -18,7 +18,7 @@
       <input
         matInput
         (keyup)="Filterchange($event)"
-        placeholder="Entrer un texte..."
+        placeholder="Chercher une reclamation..."
         autofocus
       />
     </mat-form-field>
@@ -50,7 +50,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             Cin Du Client
           </th>
-          <td mat-cell *matCellDef="let row">{{ row.cin_client }}</td>
+          <td mat-cell *matCellDef="let row"><span class="masked-characters">*****</span>{{ row.cin_client }}</td>
         </ng-container>
 
         <ng-container matColumnDef="date">
@@ -60,7 +60,11 @@
 
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Etat</th>
-          <td mat-cell *matCellDef="let row">{{ row.status }}</td>
+          <td mat-cell *matCellDef="let row" class="etat-cell">
+            <i *ngIf="row.status==='Traitée'" class="fa fa-check-circle" style="color : green;" ></i>
+            <i *ngIf="row.status==='En Attente'" class="fa fa-hourglass-half" style="color : orange;" ></i>
+            <i *ngIf="row.status==='Rejetée'" class="fa fa-times-circle" style="color : red;" ></i>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="action">

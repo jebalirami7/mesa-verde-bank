@@ -18,3 +18,15 @@ th {
 mat-form-field {
   width: 100%;
 }
+
+.masked-characters {
+  letter-spacing: 0.5em; 
+}
+
+.etat-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  height: inherit;
+}
