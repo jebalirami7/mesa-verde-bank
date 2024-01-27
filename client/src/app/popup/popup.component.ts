@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Service } from '../service';
+import { Service } from '../services/service';
 import { MatSelectChange } from '@angular/material/select';
 import { NgxSpinnerService } from 'ngx-spinner';
 

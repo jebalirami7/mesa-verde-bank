@@ -25,6 +25,31 @@ exports.getAllRec = (req, res, next ) => {
 };
 
 
+exports.getCount = (req, res, next ) => {
+    Promise.all([
+        Reclamation.countDocuments({ status: "En Attente" }),
+        Reclamation.countDocuments({ status: "Traitée" }),
+        Reclamation.countDocuments({ status: "Rejetée" })
+    ])
+    .then(([inProgressCount, acceptedCount, rejectedCount]) => {
+        res.status(200).json({
+            message: 'Nombre de reclamations trouvées : ',
+            count: {
+                inProgress: inProgressCount,
+                accepted: acceptedCount,
+                rejected: rejectedCount
+            }
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: 'Une erreur a survenu pendant le calcul de nombre des reclamations',
+        });
+    });
+};
+
+
 exports.getReclamation = (req, res, next ) => {
     const id = req.params.id;
     Reclamation.findById(id).exec().then( doc => {

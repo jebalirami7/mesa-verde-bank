@@ -5,7 +5,8 @@ const router = express.Router();
 
 router.get('/getAll', checkAuth , controller.getAllRec);
 router.get('/getAll/:id', checkAuth , controller.getAllRec);
-router.get('/:id', checkAuth , controller.getReclamation);
+router.get('/getOne/:id', checkAuth , controller.getReclamation);
+router.get('/count', checkAuth , controller.getCount);
 router.post('/' ,checkAuth , controller.createReclamation);
 router.patch('/:id', checkAuth , controller.editReclamation);
 router.delete('/:id', checkAuth , controller.deleteReclamation);

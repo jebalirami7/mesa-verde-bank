@@ -1,0 +1,7 @@
+.col-lg-6 {
+    width: 30%;
+    margin: 0 auto;
+}
+canvas {
+    box-sizing: content-box;
+}

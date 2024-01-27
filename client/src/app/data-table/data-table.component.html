@@ -7,6 +7,9 @@
   <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
 
+<h1 class="title" *ngIf="param == undefined">Welcome {{username}} </h1>
+<app-chart *ngIf="param == undefined"></app-chart>
+
 <h1 class="title">{{ title }}</h1>
 
 <mat-card>
@@ -24,11 +27,18 @@
   <mat-card-content>
     <div class="mat-elevation-z8 data-table">
       <table mat-table class="full-width-table" matSort aria-label="Elements">
-        <ng-container matColumnDef="id">
+        <!-- <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
           <div style="width: 50%">
             <td mat-cell *matCellDef="let row">{{ row._id }}</td>
           </div>
+        </ng-container> -->
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Réference</th>
+            <td mat-cell *matCellDef="let row">
+              Réf N°{{row._id[row._id.length - 3]  + row._id[row._id.length - 2] + row._id[row._id.length - 1]}}
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="subject">

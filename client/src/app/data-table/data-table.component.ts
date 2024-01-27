@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../popup/popup.component';
-import { Service } from '../service';
+import { Service } from '../services/service';
 import { Reclamation } from '../Entities/Reclamation';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -19,7 +19,8 @@ import { AuthService } from '../services/auth.service';
 
 export class DataTableComponent implements OnInit, AfterViewInit {
 
-  param: string | undefined;
+  username!: string;
+  param!: string;
   title: string = "Liste Des Réclamations ";
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -55,6 +56,22 @@ export class DataTableComponent implements OnInit, AfterViewInit {
       }
     }});
   }
+
+  getCurrentUser() {
+    this.spinner.show();
+
+    this.auth.currentUser().subscribe({next : res => {
+      console.log(res?.username)
+      this.username = res?.username;
+    }, error : err => {
+      if (err instanceof HttpErrorResponse) {
+        if ( err.status === 401 ) {
+          this.auth.logout();
+          this.router.navigate(['/']);
+        }
+      }
+    }});
+  }
   
   displayedColumns = ['id', 'subject', 'cin', 'date', 'status', 'action'];
 
@@ -74,6 +91,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     console.log('Current Child Route:', this.param);
 
     this.loadReclamation(this.param);
+    this.getCurrentUser(); 
 
     if (this.param == "accepted")
       this.title += "Traitées";

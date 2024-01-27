@@ -1,7 +1,7 @@
 // import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Reclamation } from './Entities/Reclamation';
+import { Reclamation } from '../Entities/Reclamation';
 
 import { Injectable } from '@angular/core';
 const url = 'http://localhost:3000';
@@ -24,7 +24,11 @@ export class Service {
     return this.http.patch(url + '/reclamation/' + id, data);
   }
 
-  GetReclamationById(id: any) {
-    return this.http.get(url + '/reclamation/' + id);
+  GetReclamationById(id: any): Observable<any> {
+    return this.http.get(url + '/reclamation/getOne/' + id);
+  }
+
+  GetCount(): Observable<any> {
+    return this.http.get(url + '/reclamation/count');
   }
 }

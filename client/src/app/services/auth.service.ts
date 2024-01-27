@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
+const url = 'http://localhost:3000';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -28,6 +30,9 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-    
+  }
+
+  currentUser(): Observable<any> {
+    return this.http.get(url + '/user/current');
   }
 }

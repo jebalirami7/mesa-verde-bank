@@ -1,12 +1,12 @@
 .title {
   display: flex;
   justify-content: center;
-  padding: 60px 0;
+  padding: 50px 0;
   font-size: xx-large;
 }
 
 mat-card {
-  width: 80%;
+  width: 70%;
   margin: auto;
 }
 
@@ -14,7 +14,7 @@ th {
   background-color: rgb(34, 31, 31) !important;
   color: white;
 }
-/* 
-.filter {
-  margin-left: 200px;
-} */
+
+mat-form-field {
+  width: 100%;
+}

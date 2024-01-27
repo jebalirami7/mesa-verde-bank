@@ -19,6 +19,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { BodyComponent } from './body/body.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     PopupComponent,
     SidenavComponent,
     BodyComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
