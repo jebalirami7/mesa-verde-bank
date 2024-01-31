@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import {url} from './urls';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +31,6 @@ export class AuthService {
   }
 
   currentUser(): Observable<any> {
-    return this.http.get(url + '/user/current');
+    return this.http.get(environment.apiURL + '/user/current');
   }
 }
