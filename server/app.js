@@ -17,7 +17,7 @@ mongoose.connect('mongodb+srv://'+ process.env.MONGO_ATLAS_USER +':' + process.e
 app.use(morgan('dev'));
 app.use(cors(
     {
-        origin: ["https://web-project-klfm65r9a-jebalirami7s-projects.vercel.app"],
+        origin: [process.env.CLIENT_URL],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true
     }
