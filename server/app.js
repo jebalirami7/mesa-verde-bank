@@ -15,7 +15,13 @@ mongoose.connect('mongodb+srv://'+ process.env.MONGO_ATLAS_USER +':' + process.e
 /******************** Config **********************/
 
 app.use(morgan('dev'));
-app.use(cors());
+app.use(cors(
+    {
+        origin: ["https://web-project-klfm65r9a-jebalirami7s-projects.vercel.app"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true
+    }
+));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
