@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Reclamation } from '../Entities/Reclamation';
 
 import { Injectable } from '@angular/core';
-const url = 'http://localhost:3000';
+import {url} from './urls';
 
 @Injectable({
   providedIn: 'root',

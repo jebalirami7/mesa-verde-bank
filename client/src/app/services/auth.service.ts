@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-
-const url = 'http://localhost:3000';
+import {url} from './urls';
 
 @Injectable({
   providedIn: 'root',
