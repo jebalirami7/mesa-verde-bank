@@ -29,7 +29,7 @@ export class ChartComponent implements OnInit {
     this.service.GetCount().subscribe({next : res => {
       if (res)
         this.spinner.hide();
-      console.log("count", res?.count)
+      // console.log("count", res?.count)
       this.count = res?.count;
       
       this.RenderChart();

@@ -7,8 +7,8 @@
   <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
 
-<h1 class="title" *ngIf="param == undefined">Welcome {{username}} </h1>
-<app-chart *ngIf="param == undefined"></app-chart>
+<h1 class="title" *ngIf="param == 'all'">Welcome {{username}} </h1>
+<app-chart *ngIf="param == 'all'"></app-chart>
 
 <h1 class="title">{{ title }}</h1>
 

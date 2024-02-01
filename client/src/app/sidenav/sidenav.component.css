@@ -90,6 +90,11 @@
                 margin-left: 1.5rem;
             }
         }
+
+        .active {
+            background-color: #fff;
+            color: #000;
+        }
     }
 
     .sidenav-nav-item:hover {

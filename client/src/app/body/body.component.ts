@@ -14,9 +14,7 @@ interface SideNavToggle {
 export class BodyComponent {
 
 
-  constructor(private auth: AuthService) {
-    console.log(this.isLoggedIn)
-  }
+  constructor(private auth: AuthService) { }
 
   // @Input() collapsed = false;
   // @Input() screenWidth = 0;

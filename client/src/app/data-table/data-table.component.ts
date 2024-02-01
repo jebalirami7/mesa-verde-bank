@@ -40,7 +40,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
       if (res)
         this.spinner.hide();
 
-      console.log(res?.reclamations)
+      // console.log(res?.reclamations)
       this.reclamations = res?.reclamations;
       this.dataSource = new MatTableDataSource<Reclamation>(this.reclamations);
       this.dataSource.sort = this.sort;
@@ -61,7 +61,6 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     this.spinner.show();
 
     this.auth.currentUser().subscribe({next : res => {
-      console.log(res?.username)
       this.username = res?.username;
     }, error : err => {
       if (err instanceof HttpErrorResponse) {
@@ -88,7 +87,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     if (segments.length > 0) {
       this.param = segments[segments.length - 1].path;
     }
-    console.log('Current Child Route:', this.param);
+    // console.log('Current Child Route:', this.param);
 
     this.loadReclamation(this.param);
     this.getCurrentUser(); 

@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'reclamations',
     component: BodyComponent,
     children: [
-      {path: '', component: DataTableComponent},
+      {path: 'all', component: DataTableComponent},
       {path: 'in-progress', component: DataTableComponent},
       {path: 'accepted', component: DataTableComponent},
       {path: 'rejected', component: DataTableComponent},

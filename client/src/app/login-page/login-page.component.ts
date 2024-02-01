@@ -32,7 +32,7 @@ export class LoginPageComponent {
       this.auth.login(this.loginForm.value).subscribe({
         next: (result) => {
           this.auth.setToken(result.token);
-          this.router.navigate(['/reclamations']);
+          this.router.navigate(['/reclamations/all']);
         },
         error: (err) => {
           this.errorMessage = "Erreur d'authentification";
