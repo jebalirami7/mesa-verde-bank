@@ -20,6 +20,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { BodyComponent } from './body/body.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ChartComponent } from './chart/chart.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ChartComponent } from './chart/chart.component';
     SidenavComponent,
     BodyComponent,
     ChartComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

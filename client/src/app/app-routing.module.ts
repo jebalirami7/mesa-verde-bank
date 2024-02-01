@@ -4,6 +4,7 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { authGuard, reclamationGuard } from './auth.guard';
 import { BodyComponent } from './body/body.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,11 @@ const routes: Routes = [
       {path: 'rejected', component: DataTableComponent},
     ],
     canActivate : [reclamationGuard]
-  }
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
+  },
 ];
 
 @NgModule({
