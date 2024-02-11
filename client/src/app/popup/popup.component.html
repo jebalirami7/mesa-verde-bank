@@ -34,7 +34,7 @@
           [disabled]="editData?.status != 'En Attente'" 
           (selectionChange)="onSelectChange($event)"
         >
-            <mat-option value="default">{{editData.status}}</mat-option>
+            <mat-option value="default" *ngIf="editData?.status">{{editData?.status}}</mat-option>
             <mat-option value="Rejetée">Rejetée</mat-option>
             <mat-option value="Traitée">Traitée</mat-option>
         </mat-select>
