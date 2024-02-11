@@ -2,7 +2,7 @@
 
 The Bank Customer Complaint Management System is a web-based application developed using the MEAN stack to facilitate the efficient handling of complaints from individual retail customers of a bank. The system aims to streamline the complaint resolution process, enhance communication between customers and bank representatives, and ultimately improve customer satisfaction.
 
-## Live Demo Link
+## Live Demo
 
 [Mesa Verde Bank](https://webproject-pied.vercel.app/)
 
