@@ -4,7 +4,7 @@ The Bank Customer Complaint Management System is a web-based application develop
 
 ## Live Demo
 
-[Mesa Verde Bank](https://webproject-pied.vercel.app/)
+<a href="https://webproject-pied.vercel.app/" target="_blank">Mesa Verde Bank</a>
 
 ## Demo Video
 
