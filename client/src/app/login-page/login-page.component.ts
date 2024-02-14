@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login-page',
@@ -12,7 +13,7 @@ export class LoginPageComponent {
   loginForm: FormGroup;
   errorMessage: string;
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private auth: AuthService, private router: Router, private spinner: NgxSpinnerService) {
     this.errorMessage = '';
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -21,6 +22,8 @@ export class LoginPageComponent {
   }
 
   onSubmit() {
+    this.spinner.show();
+
     const usernameControl = this.loginForm.get('username');
     const passwordControl = this.loginForm.get('password');
 
@@ -31,10 +34,12 @@ export class LoginPageComponent {
 
       this.auth.login(this.loginForm.value).subscribe({
         next: (result) => {
+          this.spinner.hide();
           this.auth.setToken(result.token);
           this.router.navigate(['/reclamations/all']);
         },
         error: (err) => {
+          this.spinner.hide();
           this.errorMessage = "Erreur d'authentification";
         },
       });
