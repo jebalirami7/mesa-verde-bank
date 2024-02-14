@@ -40,6 +40,8 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 - [Yassine Ben Abdelaziz](https://github.com/YassineBenAbdelaziz)
 
 
----
 
+<!--
+---
 Thank you for checking out Classic Donkey Kong 2D! We hope you enjoy playing this nostalgic tribute to a classic arcade favorite. If you have any questions or feedback, feel free to reach out. Happy gaming! 🎮🍌
+-->
