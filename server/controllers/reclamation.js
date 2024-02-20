@@ -11,6 +11,9 @@ exports.getAllRec = (req, res, next ) => {
     else if (status == "rejected") 
         condition.status = "Rejetée";
 
+    if (req.user.role === "client") 
+        condition.cin_client = req.user.cin;
+
     Reclamation.find(condition).exec().then( docs => {
         docs.forEach( doc => {
             let numToStr = doc.cin_client.toString();
@@ -31,10 +34,20 @@ exports.getAllRec = (req, res, next ) => {
 
 
 exports.getCount = (req, res, next ) => {
+    const conditions = [
+        { status: "En Attente" },
+        { status: "Traitée" },
+        { status: "Rejetée" }
+    ];
+
+    if (req.user.role === "client")
+        for(let condition of conditions) 
+            condition.cin_client = req.user.cin;
+
     Promise.all([
-        Reclamation.countDocuments({ status: "En Attente" }),
-        Reclamation.countDocuments({ status: "Traitée" }),
-        Reclamation.countDocuments({ status: "Rejetée" })
+        Reclamation.countDocuments(conditions[0]),
+        Reclamation.countDocuments(conditions[1]),
+        Reclamation.countDocuments(conditions[2])
     ])
     .then(([inProgressCount, acceptedCount, rejectedCount]) => {
         res.status(200).json({
@@ -83,7 +96,7 @@ exports.createReclamation = (req, res, next ) => {
     const reclamation = new Reclamation({
         _id: new mongoose.Types.ObjectId(),
         subject: req.body.subject,
-        cin_client: req.body.cin_client,
+        cin_client: req.user.cin,
         description: req.body.description,
         date: day + '-' + month + '-' + year,
         status: 'En Attente',
@@ -169,12 +182,12 @@ function generateReclamations(res, numReclamations) {
     const reclamations=[];
     for (let i = 0; i < numReclamations; i++) {
         const reclamation = {
-        _id: new mongoose.Types.ObjectId(),
-        date: day + '-' + month + '-' + year,
-        status: 'En Attente',
-        subject: `Sujet de la réclamation ${i + 1}`,
-        cin_client: Math.floor(10000000 + Math.random() * 90000000), // Nombre aléatoire de 8 chiffres
-        description: `Description de la réclamation ${i + 1}\nLorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptate inventore quidem possimus odit voluptas temporibus pariatur culpa, optio ipsa dolore cum qui consectetur alias minima impedit, officia facilis tempore?`
+            _id: new mongoose.Types.ObjectId(),
+            date: day + '-' + month + '-' + year,
+            status: 'En Attente',
+            subject: `Sujet de la réclamation ${i + 1}`,
+            cin_client: Math.floor(10000000 + Math.random() * 90000000), // Nombre aléatoire de 8 chiffres
+            description: `Description de la réclamation ${i + 1}\nLorem ipsum dolor sit amet consectetur adipisicing elit. Minus voluptate inventore quidem possimus odit voluptas temporibus pariatur culpa, optio ipsa dolore cum qui consectetur alias minima impedit, officia facilis tempore?`
         };
         reclamations.push(reclamation)
     }
