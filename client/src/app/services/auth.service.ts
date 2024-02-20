@@ -14,6 +14,10 @@ export class AuthService {
     return this.http.post<any>(`${environment.apiURL}/user/login`, credentials);
   }
 
+  signup(credentials: any): Observable<any> {
+    return this.http.post<any>(`${environment.apiURL}/user/signup`, credentials);
+  }
+
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }

@@ -19,8 +19,11 @@ export class Service {
   }
 
   SaveReclamation(id: any, data: any) {
-    console.log(data);
     return this.http.patch(environment.apiURL + '/reclamation/' + id, data);
+  }
+
+  CreateReclamation(data: any) {
+    return this.http.post(environment.apiURL + '/reclamation/', data);
   }
 
   GetReclamationById(id: any): Observable<any> {

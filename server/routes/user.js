@@ -10,4 +10,6 @@ router.post('/login', controller.login)
 
 router.get('/current', checkAuth, controller.current)
 
+router.delete('/', controller.deleteAllUsers);
+
 module.exports = router ;

@@ -46,7 +46,7 @@ export class PopupComponent implements OnInit {
       this.editData = item;
       this.editData = this.editData.reclamation;
       this.myForm.setValue({
-        cin: this.editData.cin_client,
+        cin: "*****" + this.editData.cin_client,
         date: this.editData.date,
         subject: this.editData.subject,
         status: this.editData.status,
@@ -59,7 +59,7 @@ export class PopupComponent implements OnInit {
     this.ref.close('Popup Closed');
   }
 
-  Saveuser() {
+  save() {
     this.service.SaveReclamation(this.data.id, this.myForm.value).subscribe(res => {
       this.closepopup();
     });

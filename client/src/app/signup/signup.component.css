@@ -52,7 +52,8 @@ form {
 h2 {
   text-align: center;
   color: #333;
-  font-size: 24px; /* Increase font size for the heading */
+  font-size: 24px;
+  /* Increase font size for the heading */
   margin-bottom: 20px;
 }
 
@@ -90,9 +91,11 @@ button {
   font-weight: 600;
   line-height: 1.25;
   text-decoration-line: none;
+
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0);
   background-color: #0a66c2;
   color: #ffffff;
+
   border: 1px solid transparent;
 }
 

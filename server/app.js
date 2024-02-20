@@ -10,7 +10,17 @@ const recRoutes = require('./routes/reclamation');
 const app = express();
 
 
-mongoose.connect('mongodb+srv://'+ process.env.MONGO_ATLAS_USER +':' + process.env.MONGO_ATLAS_PW + '@projet-web.16rfjod.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect(
+    'mongodb+srv://'+ process.env.MONGO_ATLAS_USER +':' + process.env.MONGO_ATLAS_PW + '@projet-web.16rfjod.mongodb.net/?retryWrites=true&w=majority',
+);
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  // Now it's safe to do any operations with your models
+});
 
 /******************** Config **********************/
 

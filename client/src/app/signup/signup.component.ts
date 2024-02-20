@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css'],
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
-export class LoginPageComponent {
+export class SignupComponent {
   loginForm: FormGroup;
   errorMessage: string;
 
@@ -18,7 +18,20 @@ export class LoginPageComponent {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+      repeatPassword: ['', Validators.required],
+      cin: ['', Validators.required],
     });
+  }
+
+  isInputValid(controls: any): Boolean {
+    for(const control of controls) 
+      if (!control?.valid)
+        return false;
+
+    if (controls.password?.value !== controls.repeatPassword?.value)
+      return false;
+    
+    return true;
   }
 
   onSubmit() {
@@ -26,17 +39,21 @@ export class LoginPageComponent {
 
     const usernameControl = this.loginForm.get('username');
     const passwordControl = this.loginForm.get('password');
-
-    if (usernameControl && passwordControl && usernameControl.valid && passwordControl.valid) {
-      const username = usernameControl.value;
-      const password = passwordControl.value;
+    const repeatPasswordControl = this.loginForm.get('repeatPassword');
+    const cinControl = this.loginForm.get('cin');
+    const controls = [usernameControl, passwordControl, repeatPasswordControl, cinControl];
+    console.log(controls);
+    
+    if (this.isInputValid(controls)) {
+      const username = usernameControl?.value;
+      const password = passwordControl?.value;
       this.errorMessage = '';
 
-      this.auth.login(this.loginForm.value).subscribe({
+      this.auth.signup(this.loginForm.value).subscribe({
         next: (result) => {
           this.spinner.hide();
           this.auth.setToken(result.token);
-          this.router.navigate(['/reclamations/all']);
+          this.router.navigate(['/']);
         },
         error: (err) => {
           this.spinner.hide();

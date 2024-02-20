@@ -14,6 +14,8 @@ exports.signup = (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         username: req.body.username,
         password: hash,
+        role: "client",
+        cin: req.body.cin,
       });
       user
         .save()
@@ -35,7 +37,10 @@ exports.current = (req, res, next) => {
     try {
         res.status(200).json({
             message: "User found",
-            username: req.user.username,
+            user: {
+              username: req.user.username,
+              role: req.user.role,
+            }
         });
     } catch (error) {
         res.status(500).json({
@@ -65,6 +70,8 @@ exports.login = (req, res, next) => {
           const token = jwt.sign(
             {
               username: user[0].username,
+              role: user[0].role,
+              cin: user[0].cin,
             },
             process.env.JWT_KEY,
             {
@@ -82,4 +89,18 @@ exports.login = (req, res, next) => {
         });
       });
     });
+};
+
+
+exports.deleteAllUsers = (req, res, next ) => {
+  User.deleteMany({}).exec().then( doc => {
+      res.status(200).json({
+          message: 'Tous les utilisateurs sont supprimées',
+      });
+  }).catch(err => {
+      console.log(err);
+      res.status(500).json({
+          error: 'Une erreur a survenu pendant la suppression des utilisateurs',
+      });
+  })
 };

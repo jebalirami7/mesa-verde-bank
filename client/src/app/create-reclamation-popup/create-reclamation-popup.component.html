@@ -1,0 +1,27 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-spin"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+<form [formGroup]="myForm" (ngSubmit)="save()">
+  <h1 mat-dialog-title>Créer Une Réclamation</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Sujet</mat-label>
+        <input matInput formControlName="subject"/>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea style="height: 100px;" formControlName="description" matInput></textarea>
+    </mat-form-field>   
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button type="submit" color="primary">Enregistrer</button>
+    <a (click)="closepopup()" mat-raised-button color="warn">Fermer</a>
+    <!-- <button mat-raised-button [mat-dialog-close]="closemessage" color="accent">Cancel</button> -->
+  </div>
+</form>
