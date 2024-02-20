@@ -17,16 +17,22 @@
             </div>
 
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
-                <h2>Welcome Back</h2>
+                <h2>Join Us</h2>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" formControlName="username">
+
+                <label for="cin">Cin:</label>
+                <input type="text" id="cin" name="cin" formControlName="cin" >
 
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" formControlName="password" >
 
+                <label for="repeat-password">Repeat Password:</label>
+                <input type="password" id="repeat-password" name="repeat-password" formControlName="repeatPassword" >
+
                 <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-                <button type="submit" >Login</button>
-                <span>Don't have an account ? <a href="/signup">Join Us</a></span>
+                <button type="submit" >Signup</button>
+                <span>Already have an account ? <a href="/">Login</a></span>
             </form>
         </div>
     </div>

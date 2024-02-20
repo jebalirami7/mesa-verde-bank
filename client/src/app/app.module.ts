@@ -21,6 +21,7 @@ import { BodyComponent } from './body/body.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ChartComponent } from './chart/chart.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     BodyComponent,
     ChartComponent,
     NotFoundComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
