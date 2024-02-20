@@ -15,7 +15,7 @@ th {
   color: white;
 }
 
-mat-form-field {
+mat-form-field { 
   width: 100%;
 }
 
@@ -29,4 +29,14 @@ mat-form-field {
   align-items: center;
   font-size: 16px;
   height: inherit;
+}
+
+.filter {
+  display: flex;
+  /* align-items: center; */
+}
+
+.add-reclamation {
+  padding: 27px 0;
+  margin-left: 16px;
 }

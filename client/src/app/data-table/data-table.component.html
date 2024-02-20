@@ -7,8 +7,8 @@
   <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
 
-<h1 class="title" *ngIf="param == 'all'">Welcome {{username}} </h1>
-<app-chart *ngIf="param == 'all'"></app-chart>
+<h1 class="title" *ngIf="param === 'all'">Welcome {{user?.username}} </h1>
+<app-chart *ngIf="param === 'all'"></app-chart>
 
 <h1 class="title">{{ title }}</h1>
 
@@ -22,22 +22,25 @@
         autofocus
       />
     </mat-form-field>
+    <button
+      class="add-reclamation"
+      *ngIf="user?.role === 'client' && param === 'all'"
+      (click)="createReclamation()"
+      mat-raised-button
+      color="warn"
+    >
+      Ajouter une reclamation
+    </button>
   </mat-card-content>
 
   <mat-card-content>
     <div class="mat-elevation-z8 data-table">
-      <table mat-table class="full-width-table" matSort aria-label="Elements">
-        <!-- <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-          <div style="width: 50%">
-            <td mat-cell *matCellDef="let row">{{ row._id }}</td>
-          </div>
-        </ng-container> -->
+      <table mat-table [dataSource]="dataSource" class="full-width-table" matSort aria-label="Elements">
 
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Réference</th>
             <td mat-cell *matCellDef="let row">
-              Réf N°{{row._id[row._id.length - 3]  + row._id[row._id.length - 2] + row._id[row._id.length - 1]}}
+              Réf N°{{ row._id[row._id.length - 3] + row._id[row._id.length - 2] + row._id[row._id.length - 1] }}
             </td>
         </ng-container>
 
@@ -45,12 +48,14 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Sujet</th>
           <td mat-cell *matCellDef="let row">{{ row.subject }}</td>
         </ng-container>
-
+        
         <ng-container matColumnDef="cin">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             Cin Du Client
           </th>
-          <td mat-cell *matCellDef="let row"><span class="masked-characters">*****</span>{{ row.cin_client }}</td>
+          <td mat-cell *matCellDef="let row">
+            <span class="masked-characters">*****</span>{{ row.cin_client }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="date">
@@ -61,9 +66,9 @@
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Etat</th>
           <td mat-cell *matCellDef="let row" class="etat-cell">
-            <i *ngIf="row.status==='Traitée'" class="fa fa-check-circle" style="color : green;" ></i>
-            <i *ngIf="row.status==='En Attente'" class="fa fa-hourglass-half" style="color : orange;" ></i>
-            <i *ngIf="row.status==='Rejetée'" class="fa fa-times-circle" style="color : red;" ></i>
+            <i *ngIf="row.status === 'Traitée'" class="fa fa-check-circle" style="color : green;" ></i>
+            <i *ngIf="row.status === 'En Attente'" class="fa fa-hourglass-half" style="color : orange;" ></i>
+            <i *ngIf="row.status === 'Rejetée'" class="fa fa-times-circle" style="color : red;" ></i>
           </td>
         </ng-container>
 
@@ -75,7 +80,7 @@
               mat-raised-button
               color="primary"
             >
-              Edit
+              {{ user?.role === 'client' ? 'Voir' : 'Editer' }}
             </button>
           </td>
         </ng-container>

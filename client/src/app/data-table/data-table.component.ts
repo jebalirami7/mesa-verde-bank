@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -7,9 +7,10 @@ import { PopupComponent } from '../popup/popup.component';
 import { Service } from '../services/service';
 import { Reclamation } from '../Entities/Reclamation';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../services/auth.service';
+import { CreateReclamationPopupComponent } from '../create-reclamation-popup/create-reclamation-popup.component';
 
 @Component({
   selector: 'app-data-table',
@@ -17,9 +18,8 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./data-table.component.css']
 })
 
-export class DataTableComponent implements OnInit, AfterViewInit {
-
-  username!: string;
+export class DataTableComponent implements OnInit {
+  user!: any;
   param!: string;
   title: string = "Liste Des Réclamations ";
 
@@ -28,66 +28,18 @@ export class DataTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<any>;
   dataSource: any;
   reclamations !: Reclamation[];
+  displayedColumns = ['id', 'subject', 'cin', 'date', 'status', 'action'];
 
   constructor(private service: Service, private dialog: MatDialog, private auth:AuthService,
     private router: Router, private route: ActivatedRoute,
     private spinner: NgxSpinnerService) { }
   
-  loadReclamation(param: any) {
-    this.spinner.show();
-
-    this.service.GetReclamation(param).subscribe({next : res => {
-      if (res)
-        this.spinner.hide();
-
-      // console.log(res?.reclamations)
-      this.reclamations = res?.reclamations;
-      this.dataSource = new MatTableDataSource<Reclamation>(this.reclamations);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      if (this.table)
-        this.table.dataSource = this.dataSource;
-    }, error : err => {
-      if (err instanceof HttpErrorResponse) {
-        if ( err.status === 401 ) {
-          this.auth.logout();
-          this.router.navigate(['/']);
-        }
-      }
-    }});
-  }
-
-  getCurrentUser() {
-    this.spinner.show();
-
-    this.auth.currentUser().subscribe({next : res => {
-      this.username = res?.username;
-    }, error : err => {
-      if (err instanceof HttpErrorResponse) {
-        if ( err.status === 401 ) {
-          this.auth.logout();
-          this.router.navigate(['/']);
-        }
-      }
-    }});
-  }
-  
-  displayedColumns = ['id', 'subject', 'cin', 'date', 'status', 'action'];
-
-  ngAfterViewInit(): void {
-    if (this.dataSource) {
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      this.table.dataSource = this.dataSource;
-    }
-  }
 
   ngOnInit() {
     const segments = this.route.snapshot.url;
     if (segments.length > 0) {
       this.param = segments[segments.length - 1].path;
     }
-    // console.log('Current Child Route:', this.param);
 
     this.loadReclamation(this.param);
     this.getCurrentUser(); 
@@ -100,15 +52,75 @@ export class DataTableComponent implements OnInit, AfterViewInit {
       this.title += "En Attente";
   }  
 
+
+  loadReclamation(param: any) {
+    this.spinner.show();
+
+    this.service.GetReclamation(param).subscribe({next : res => {
+      if (res)
+        this.spinner.hide();
+
+      this.reclamations = res?.reclamations;
+      this.dataSource = new MatTableDataSource<Reclamation>(this.reclamations);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.table.dataSource = this.dataSource;      
+    }, error : err => {
+      if (err instanceof HttpErrorResponse) {
+        if ( err.status === 401 ) {
+          this.auth.logout();
+          this.router.navigate(['/']);
+        }
+      }
+    }});
+  }
+
+
+  getCurrentUser() {
+    this.spinner.show();
+
+    this.auth.currentUser().subscribe({next : res => {
+      this.user = res?.user;
+    }, error : err => {
+      if (err instanceof HttpErrorResponse) {
+        if ( err.status === 401 ) {
+          this.auth.logout();
+          this.router.navigate(['/']);
+        }
+      }
+    }});
+  }
+
+
   Filterchange(data: Event) {
     const value = (data.target as HTMLInputElement).value;
     if (this.dataSource)
       this.dataSource.filter = value;
   }
   
+
   editReclamation(id: any) {
     this.openPopup(id);
   }
+
+
+  createReclamation() {
+    this.openCreateReclamationPopup();
+  }
+
+
+  openCreateReclamationPopup() {
+    var _popup = this.dialog.open(CreateReclamationPopupComponent, {
+      width: '60%',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+    });
+    _popup.afterClosed().subscribe(item => {
+      // console.log(item)
+      this.loadReclamation(this.param);
+    });
+  }
+
 
   openPopup(id: any) {
     var _popup = this.dialog.open(PopupComponent, {
@@ -117,6 +129,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
       exitAnimationDuration: '500ms',
       data: {
         id: id,
+        userRole: this.user.role,
       }
     });
     _popup.afterClosed().subscribe(item => {

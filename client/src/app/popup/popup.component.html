@@ -7,7 +7,7 @@
   <p style="font-size: 20px; color: white">Loading...</p>
 </ngx-spinner>
 
-<form [formGroup]="myForm" (ngSubmit)="Saveuser()">
+<form [formGroup]="myForm" (ngSubmit)="save()">
   <h1 mat-dialog-title>Réclamation N°{{data.id}}</h1>
   <div mat-dialog-content>
       <mat-form-field>
@@ -31,7 +31,7 @@
         <mat-select 
           [value]="'default'" 
           panelClass="sort-select" 
-          [disabled]="editData?.status != 'En Attente'" 
+          [disabled]="editData?.status != 'En Attente' || data?.userRole === 'client'" 
           (selectionChange)="onSelectChange($event)"
         >
             <mat-option value="default" *ngIf="editData?.status">{{editData?.status}}</mat-option>
@@ -41,8 +41,8 @@
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
-    <button mat-raised-button type="submit" color="primary">Save</button>
-    <a (click)="closepopup()" mat-raised-button color="warn">Cancel</a>
+    <button mat-raised-button type="submit" color="primary" *ngIf="data?.userRole !== 'client'" >Enregistrer</button>
+    <a (click)="closepopup()" mat-raised-button color="warn">Fermer</a>
     <!-- <button mat-raised-button [mat-dialog-close]="closemessage" color="accent">Cancel</button> -->
   </div>
 </form>
