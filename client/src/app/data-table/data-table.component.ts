@@ -27,12 +27,14 @@ export class DataTableComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<any>;
   dataSource: any;
-  reclamations !: Reclamation[];
+  reclamations : Reclamation[];
   displayedColumns = ['id', 'subject', 'cin', 'date', 'status', 'action'];
 
   constructor(private service: Service, private dialog: MatDialog, private auth:AuthService,
     private router: Router, private route: ActivatedRoute,
-    private spinner: NgxSpinnerService) { }
+    private spinner: NgxSpinnerService) {
+      this.reclamations = [];
+    }
   
 
   ngOnInit() {
@@ -64,7 +66,7 @@ export class DataTableComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Reclamation>(this.reclamations);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.table.dataSource = this.dataSource;      
+      this.table.dataSource = this.dataSource;            
     }, error : err => {
       if (err instanceof HttpErrorResponse) {
         if ( err.status === 401 ) {

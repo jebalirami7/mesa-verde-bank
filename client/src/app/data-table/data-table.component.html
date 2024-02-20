@@ -8,7 +8,7 @@
 </ngx-spinner>
 
 <h1 class="title" *ngIf="param === 'all'">Welcome {{user?.username}} </h1>
-<app-chart *ngIf="param === 'all'"></app-chart>
+<app-chart *ngIf="param === 'all' && reclamations.length > 0"></app-chart>
 
 <h1 class="title">{{ title }}</h1>
 

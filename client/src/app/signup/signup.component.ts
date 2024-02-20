@@ -27,8 +27,8 @@ export class SignupComponent {
     for(const control of controls) 
       if (!control?.valid)
         return false;
-
-    if (controls.password?.value !== controls.repeatPassword?.value)
+      
+    if (controls[1].value !== controls[2].value)
       return false;
     
     return true;
@@ -42,7 +42,6 @@ export class SignupComponent {
     const repeatPasswordControl = this.loginForm.get('repeatPassword');
     const cinControl = this.loginForm.get('cin');
     const controls = [usernameControl, passwordControl, repeatPasswordControl, cinControl];
-    console.log(controls);
     
     if (this.isInputValid(controls)) {
       const username = usernameControl?.value;
@@ -52,8 +51,7 @@ export class SignupComponent {
       this.auth.signup(this.loginForm.value).subscribe({
         next: (result) => {
           this.spinner.hide();
-          this.auth.setToken(result.token);
-          this.router.navigate(['/']);
+          this.router.navigate(['/login']);
         },
         error: (err) => {
           this.spinner.hide();

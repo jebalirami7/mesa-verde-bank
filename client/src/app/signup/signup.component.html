@@ -13,7 +13,6 @@
         <div class="form-container">
             <div class="header">
                 <h1>Mesa Verde Bank</h1>
-                <!-- <h2>Espace Agent</h2> -->
             </div>
 
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" >
@@ -32,7 +31,7 @@
 
                 <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
                 <button type="submit" >Signup</button>
-                <span>Already have an account ? <a href="/">Login</a></span>
+                <span>Already have an account ? <a href="/login">Login</a></span>
             </form>
         </div>
     </div>

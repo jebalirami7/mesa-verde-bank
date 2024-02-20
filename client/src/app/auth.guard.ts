@@ -9,7 +9,7 @@ export const reclamationGuard: CanActivateFn = (route, state) => {
     return true ;
   }
   else {
-    router.navigate(['']);
+    router.navigate(['/login']);
     return false ;
   }
 };
@@ -22,7 +22,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     return true ;
   }
   else {
-    router.navigate(['/reclamations']);
+    router.navigate(['/reclamations/all']);
     return false;
   }
 };

@@ -14,9 +14,13 @@ const routes: Routes = [
     canActivate : [authGuard],
   },
   {
+    path: 'login',
+    component: LoginPageComponent,
+    canActivate : [authGuard],
+  },
+  {
     path: 'signup',
     component: SignupComponent,
-    canActivate : [authGuard],
   },
   {
     path: 'reclamations',
