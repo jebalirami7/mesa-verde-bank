@@ -30,8 +30,9 @@
 
 .header h1 {
   margin: 0;
-  font-size: 48px;
+  font-size: 40px;
   font-weight: bold;
+  text-align: center;
 }
 
 .header h2 {
@@ -128,4 +129,10 @@ form span {
     a {
         margin-left: 5px;
     }
+}
+
+@media (max-width: 992px) {
+  #side-img {
+    display: none;
+  }
 }
